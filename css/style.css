@@ -112,7 +112,6 @@ h1, h2, h3, h4, h5, h6 {
 .ghost {
   border-radius: 10px 10px 0px 0px;
   overflow: hidden;
-  background-color: gray;
   width: 30px;
   height: 40px;
 }
@@ -130,4 +129,20 @@ h1, h2, h3, h4, h5, h6 {
           justify-content: center;
   color: orange;
   font-size: 20px;
+}
+
+#one {
+  background-color: black;
+}
+
+#two {
+  background-color: red;
+}
+
+#three {
+  background-color: orange;
+}
+
+#four {
+  background-color: olive;
 }
