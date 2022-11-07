@@ -1,10 +1,27 @@
 const boxes = document.querySelectorAll('.box')
 const ghost = document.querySelectorAll('.ghost-container')
+const built = document.querySelector('.built')
+const start = document.querySelector('.start')
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 const coordinates = []
 let workingSpace = []
 for (let i = 0; i < ghost.length; i++) {
-    ghost[i].style.top = '300px'
-    ghost[i].style.left = '300px'
+    ghost[i].style.top = '315px'
+    ghost[i].style.left = '315px'
     
 }
 let coordinate = [[0,0],[0,0],[0,0],[0,0]]
@@ -25,11 +42,12 @@ let g
 let random = 0
 let lastPosition = [[0,0],[0,0],[0,0],[0,0]]
 function createSpace() {
-    for (let i = 0; i < 10; i++) {
-        for (let j = 0; j < 10; j++) {
-           coordinates[i*10+j] = [30 + 60*j,30 + 60*i]
+    for (let i = 0; i < 20; i++) {
+        for (let j = 0; j < 20; j++) {
+           coordinates[i*20+j] = [15 + 30*j,15 + 30*i]
         }
     } 
+    console.log(coordinates)
 }
 function createNumeration(){
     boxes.forEach((e,i)=>{
@@ -38,8 +56,8 @@ function createNumeration(){
 }
 function LevelOne(j) {
     workingSpace = [41,42,43,44,45,46,47,48,14,24,34,54,64,74,84,15,25,35,55,65,75,85,51,52,53,56,57,58]
-    coordinate[j][0] = 330
-    coordinate[j][1] = 330
+    coordinate[j][0] = 315
+    coordinate[j][1] = 315
     for (let i = 0; i < 3; i++) {[j]
         boxes[41+i].style.borderBottom = '0px solid purple'    
         boxes[41+i].style.borderTop = '3px solid purple'    
@@ -97,7 +115,7 @@ function LevelOne(j) {
     ghost[j].style.top = `${coordinate[j][1]}px`
 }
 function checkRight(j) {
-    let right = coordinate[j][0] + 60 
+    let right = coordinate[j][0] + 30 
     let num = ''
     for (let i = 0; i < boxes.length; i++) {
         if ((right === coordinates[i][0]) && (coordinate[j][1] === coordinates[i][1])){
@@ -120,7 +138,7 @@ function checkRight(j) {
 
 }
 function checkTop(j) {
-    let top = coordinate[j][1] - 60 
+    let top = coordinate[j][1] - 30 
     let num = ''
     for (let i = 0; i < boxes.length; i++) {
         if ((coordinate[j][0] === coordinates[i][0]) && (top === coordinates[i][1])){
@@ -143,7 +161,7 @@ function checkTop(j) {
 
 }
 function checkLeft(j) {
-    let left = coordinate[j][0] - 60 
+    let left = coordinate[j][0] - 30 
     let num = ''
     for (let i = 0; i < boxes.length; i++) {
         if ((left === coordinates[i][0]) && (coordinate[j][1] === coordinates[i][1])){
@@ -165,7 +183,7 @@ function checkLeft(j) {
 
 }
 function checkBottom(j) {
-    let bottom = coordinate[j][1] + 60 
+    let bottom = coordinate[j][1] + 30 
     let num = ''
     for (let i = 0; i < boxes.length; i++) {
         if ((coordinate[j][0] === coordinates[i][0]) && (bottom === coordinates[i][1])){
@@ -194,10 +212,10 @@ function OpportunitiesReset() {
     opportunityBottom =[false,false,false,false]
 }
 function checkLastPosition(i) {
-    if (lastPosition[i][0] === coordinate[i][0] + 60){opportunityRight[i] = false;}
-    else if (lastPosition[i][1] === coordinate[i][1] - 60){opportunityTop[i] = false;}
-    else if (lastPosition[i][0] === coordinate[i][0] - 60){opportunityLeft[i] = false;}
-    else if (lastPosition[i][1] === coordinate[i][1] + 60){opportunityBottom[i] = false;}
+    if (lastPosition[i][0] === coordinate[i][0] + 30){opportunityRight[i] = false;}
+    else if (lastPosition[i][1] === coordinate[i][1] - 30){opportunityTop[i] = false;}
+    else if (lastPosition[i][0] === coordinate[i][0] - 30){opportunityLeft[i] = false;}
+    else if (lastPosition[i][1] === coordinate[i][1] + 30){opportunityBottom[i] = false;}
 }
 function Moving(i) {
                     
@@ -206,26 +224,26 @@ function Moving(i) {
                 if (opportunityRight[i] === true) {
                     lastPosition[i][0] = coordinate[i][0]
                     lastPosition[i][1] = coordinate[i][1]
-                    coordinate[i][0] += 60
+                    coordinate[i][0] += 30
                     ghost[i].style.left = `${coordinate[i][0]}px`
                     ghost[i].style.top = `${coordinate[i][1]}px`            
                     
                 } else if(opportunityBottom[i] === true) {
                     lastPosition[i][0] = coordinate[i][0]
                     lastPosition[i][1] = coordinate[i][1]
-                    coordinate[i][1] += 60
+                    coordinate[i][1] += 30
                     ghost[i].style.left = `${coordinate[i][0]}px`
-                    ghost[i].style.top = `${coordinate[i][1]}px`  [i]          
+                    ghost[i].style.top = `${coordinate[i][1]}px`       
                 } else if(opportunityLeft[i] === true) {
                     lastPosition[i][0] = coordinate[i][0]
                     lastPosition[i][1] = coordinate[i][1]
-                    coordinate[i][0] -= 60
+                    coordinate[i][0] -= 30
                     ghost[i].style.left = `${coordinate[i][0]}px`
                     ghost[i].style.top = `${coordinate[i][1]}px`            
                 }else if(opportunityTop[i] === true) {
                     lastPosition[i][0] = coordinate[i][0]
                     lastPosition[i][1] = coordinate[i][1]
-                    coordinate[i][1] -= 60
+                    coordinate[i][1] -= 30
                     ghost[i].style.left = `${coordinate[i][0]}px`
                     ghost[i].style.top = `${coordinate[i][1]}px`            
                 }
@@ -239,26 +257,26 @@ function Moving(i) {
                 if (opportunityRight[i] === true) {
                     lastPosition[i][0] = coordinate[i][0]
                     lastPosition[i][1] = coordinate[i][1]
-                    coordinate[i][0] += 60
+                    coordinate[i][0] += 30
                     ghost[i].style.left = `${coordinate[i][0]}px`
                     ghost[i].style.top = `${coordinate[i][1]}px`            
                     
                 } else if(opportunityBottom[i] === true) {
                     lastPosition[i][0] = coordinate[i][0]
                     lastPosition[i][1] = coordinate[i][1]
-                    coordinate[i][1] += 60
+                    coordinate[i][1] += 30
                     ghost[i].style.left = `${coordinate[i][0]}px`
                     ghost[i].style.top = `${coordinate[i][1]}px`            
                 } else if(opportunityLeft[i] === true) {
                     lastPosition[i][0] = coordinate[i][0]
                     lastPosition[i][1] = coordinate[i][1]
-                    coordinate[i][0] -= 60
+                    coordinate[i][0] -= 30
                     ghost[i].style.left = `${coordinate[i][0]}px`
                     ghost[i].style.top = `${coordinate[i][1]}px`            
                 }else if(opportunityTop[i] === true) {
                     lastPosition[i][0] = coordinate[i][0]
                     lastPosition[i][1] = coordinate[i][1]
-                    coordinate[i][1] -= 60
+                    coordinate[i][1] -= 30
                     ghost[i].style.left = `${coordinate[i][0]}px`
                     ghost[i].style.top = `${coordinate[i][1]}px`            
                 }
@@ -277,25 +295,25 @@ function Moving(i) {
                 if ((opportunityRight[i] === true) && (random === r)) {
                     lastPosition[i][0] = coordinate[i][0]
                     lastPosition[i][1] = coordinate[i][1]
-                    coordinate[i][0] += 60
+                    coordinate[i][0] += 30
                     ghost[i].style.left = `${coordinate[i][0]}px`
                     ghost[i].style.top = `${coordinate[i][1]}px`            
                 } else if((opportunityBottom[i] === true) && (random === b)) {
                     lastPosition[i][0] = coordinate[i][0]
                     lastPosition[i][1] = coordinate[i][1]
-                    coordinate[i][1] += 60
+                    coordinate[i][1] += 30
                     ghost[i].style.left = `${coordinate[i][0]}px`
                     ghost[i].style.top = `${coordinate[i][1]}px`            
                 } else if((opportunityLeft[i] === true) && (random === l)) {
                     lastPosition[i][0] = coordinate[i][0]
                     lastPosition[1] = coordinate[i][1]
-                    coordinate[i][0] -= 60
+                    coordinate[i][0] -= 30
                     ghost[i].style.left = `${coordinate[i][0]}px`
                     ghost[i].style.top = `${coordinate[i][1]}px`            
                 }else if((opportunityTop[i] === true) && (random === t)) {
                     lastPosition[i][0] = coordinate[i][0]
                     lastPosition[i][1] = coordinate[i][1]
-                    coordinate[i][1] -= 60
+                    coordinate[i][1] -= 30
                     ghost[i].style.left = `${coordinate[i][0]}px`
                     ghost[i].style.top = `${coordinate[i][1]}px`            
                 }
@@ -314,25 +332,25 @@ function Moving(i) {
                 if ((opportunityRight[i] === true) && (random === r)) {
                     lastPosition[i][0] = coordinate[i][0]
                     lastPosition[i][1] = coordinate[i][1]
-                    coordinate[i][0] += 60
+                    coordinate[i][0] += 30
                     ghost[i].style.left = `${coordinate[i][0]}px`
                     ghost[i].style.top = `${coordinate[i][1]}px`            
                 } else if((opportunityBottom[i] === true) && (random === b)) {
                     lastPosition[i][0] = coordinate[i][0]
                     lastPosition[i][1] = coordinate[i][1]
-                    coordinate[i][1] += 60
+                    coordinate[i][1] += 30
                     ghost[i].style.left = `${coordinate[i][0]}px`
                     ghost[i].style.top = `${coordinate[i][1]}px`            
                 } else if((opportunityLeft[i] === true) && (random === l)) {
                     lastPosition[i][0] = coordinate[i][0]
                     lastPosition[i][1] = coordinate[i][1]
-                    coordinate[i][0] -= 60
+                    coordinate[i][0] -= 30
                     ghost[i].style.left = `${coordinate[i][0]}px`
                     ghost[i].style.top = `${coordinate[i][1]}px`            
                 }else if((opportunityTop[i] === true) && (random === t)) {
                     lastPosition[i][0] = coordinate[i][0]
                     lastPosition[i][1] = coordinate[i][1]
-                    coordinate[i][1] -= 60
+                    coordinate[i][1] -= 30
                     ghost[i].style.left = `${coordinate[i][0]}px`
                     ghost[i].style.top = `${coordinate[i][1]}px`            
                 }
@@ -388,21 +406,81 @@ function Leveltwo(j) {
 
 
 }
+function LevelTest(j) {
+        let randomium = Math.floor(Math.random()*workingSpace.length)
+        coordinate[j][0] = coordinates[workingSpace[randomium]][0]
+        coordinate[j][1] = coordinates[workingSpace[randomium]][1]
+       
+          for (let i = 0; i < workingSpace.length; i++) {
+            boxes[workingSpace[i]].style.border = '0px solid black'
+            
+          }
+           
+    
+        
+        ghost[j].style.left = `${coordinate[j][0]}px`
+        ghost[j].style.top = `${coordinate[j][1]}px`
+
+    
+}
+function CreatePlayingSpace(){
+    let j = 0
+    let index
+for (let i = 0; i < boxes.length; i++) {
+boxes[i].addEventListener('click', ()=>{
+    let rep = false
+    for (let l = 0; l < workingSpace.length; l++) {
+        if (i === workingSpace[l]) {
+            rep = true
+            index = l
+        }
+        
+    }
+    if (rep === false) {
+        workingSpace[j] = i
+        j++
+        boxes[i].style.border ='2px solid purple'
+        console.log(workingSpace) 
+    }else{
+        boxes[i].style.border ='1px dashed gold'
+        workingSpace.splice(index,1)
+        workingSpace.filter(Number) 
+        j--
+    }
+    
+})    
+}
+}
 
 createSpace()
 createNumeration()
-for (let i = 0; i < ghost.length; i++) {
-    LevelOne(i)
+
+
+built.addEventListener('click', CreatePlayingSpace)
+start.addEventListener('click', ()=>{
+
     
-}
-for (let i = 0; i < ghost.length; i++) {
-    lastPosition[i][0] = coordinate[i][0]
-    lastPosition[i][1] = coordinate[i][1]
+        for (let i = 0; i < ghost.length; i++) {
+            LevelTest(i)
+            
+        }
     
-}
-
-setInterval(() => {
-Action()
-},1000)
-
-
+        for (let i = 0; i < ghost.length; i++) {
+            lastPosition[i][0] = coordinate[i][0]
+            lastPosition[i][1] = coordinate[i][1]
+            
+        }
+   
+    
+    for (let i = 0; i < boxes.length; i++) {
+        boxes.forEach((e,i)=>{
+            boxes[i].innerHTML = ''
+        })        
+    }
+    
+    setInterval(() => {
+    Action()
+    },1000)
+    
+    
+})

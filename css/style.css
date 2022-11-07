@@ -64,30 +64,59 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .wrapper {
+  padding: 5px;
   min-height: 100%;
   overflow: hidden;
   background: #222;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.leftblock, .rightblock {
+  width: 15%;
+  margin-top: 15px;
+  height: 695px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  padding: 10px;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  border: 1px solid gold;
+}
+
+.built, .start {
+  width: 100px;
+  height: 20px;
+  border-radius: 10px;
+  border: 2px solid black;
+  color: yellow;
+  background: transparent;
 }
 
 .grid {
+  -webkit-box-sizing: content-box;
+          box-sizing: content-box;
+  margin-top: 5px;
   position: relative;
   width: 600px;
   height: 600px;
   display: -ms-grid;
   display: grid;
-  -ms-grid-columns: (1fr)[10];
-      grid-template-columns: repeat(10, 1fr);
-  -ms-grid-rows: (1fr)[10];
-      grid-template-rows: repeat(10, 1fr);
+  -ms-grid-columns: (1fr)[20];
+      grid-template-columns: repeat(20, 1fr);
+  -ms-grid-rows: (1fr)[20];
+      grid-template-rows: repeat(20, 1fr);
+  border: 5px solid black;
 }
 
 .ghost-container {
@@ -101,8 +130,8 @@ h1, h2, h3, h4, h5, h6 {
       -ms-flex-pack: center;
           justify-content: center;
   position: absolute;
-  width: 60px;
-  height: 60px;
+  width: 30px;
+  height: 30px;
   -webkit-transition: all 1s linear;
   transition: all 1s linear;
   -webkit-transform: translate(-50%, -50%);
@@ -112,12 +141,15 @@ h1, h2, h3, h4, h5, h6 {
 .ghost {
   border-radius: 10px 10px 0px 0px;
   overflow: hidden;
-  width: 30px;
-  height: 40px;
+  width: 15px;
+  height: 20px;
 }
 
 .box {
-  border: 2px dashed yellow;
+  cursor: pointer;
+  -webkit-box-sizing: content-box;
+          box-sizing: content-box;
+  border: 1px dashed yellow;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -128,7 +160,17 @@ h1, h2, h3, h4, h5, h6 {
       -ms-flex-pack: center;
           justify-content: center;
   color: orange;
-  font-size: 20px;
+  font-size: 10px;
+  -webkit-transition: .3s;
+  transition: .3s;
+}
+
+.box:hover {
+  border: 1px dashed yellow;
+}
+
+.box:active {
+  border: 2px solid yellow;
 }
 
 #one {

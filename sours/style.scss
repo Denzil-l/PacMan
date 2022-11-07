@@ -1,28 +1,53 @@
 @import "nullstyle.scss";
 @import url(https://fonts.googleapis.com/css?family=Silkscreen:regular,700);
 .wrapper{
+    padding: 5px;
 min-height: 100%;
 overflow: hidden;
 background: #222;
 display: flex;
-align-items: center;
-justify-content: center;
+// align-items: center;
+justify-content: space-between;
+}
+.leftblock, .rightblock{
+    width: 15%;
+    margin-top: 15px;
+    height: 695px;
+    display: flex; 
+    flex-direction: column;
+    padding: 10px;
+    align-items: center;
+    border: 1px solid gold;
+}
+.built,.start{
+    width: 100px;
+    height: 20px;
+    border-radius: 10px;
+    border: 2px solid black;
+    color: yellow;
+    background: transparent;
 }
 .grid{
+    box-sizing: content-box;
+    margin-top: 5px;
+    // background: url(../img/map2.jpg);
+    // background-repeat: no-repeat;
+    // background-size: cover;
     position: relative;
     width: 600px;
     height: 600px;
     display: grid;
-    grid-template-columns:repeat(10,1fr) ;
-    grid-template-rows:repeat(10,1fr) ;
+    grid-template-columns:repeat(20,1fr) ;
+    grid-template-rows:repeat(20,1fr) ;
+    border: 5px solid black;
 }
 .ghost-container{
     display: flex;
     align-items: center;
     justify-content: center;
     position: absolute;
-    width: 60px;
-    height: 60px;
+    width: 30px;
+    height: 30px;
    
     transition: all 1s linear;
     transform: translate(-50%,-50%);
@@ -31,17 +56,28 @@ justify-content: center;
     border-radius: 10px 10px 0px 0px;
     overflow: hidden;
     // background-color: gray;
-    width: 30px;
-    height: 40px;
+    width: 15px;
+    height: 20px;
 
 }
 .box{
-    border: 2px dashed yellow;
+    cursor: pointer;
+    box-sizing: content-box;
+    border: 1px dashed yellow;
     display: flex;
     align-items: center;
     justify-content: center;
     color: orange;
-    font-size: 20px;
+    font-size: 10px;
+    transition: .3s;
+}
+.box:hover{
+         border: 1px dashed yellow;
+
+}
+.box:active{
+         border: 2px solid yellow;
+
 }
 #one{background-color: black;}
 #two{background-color: red;}
