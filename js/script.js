@@ -1,35 +1,16 @@
 const boxes = document.querySelectorAll('.box')
 const ghost = document.querySelectorAll('.ghost-container')
+const pacman = document.querySelector('.pacman-container')
 const built = document.querySelector('.built')
 const start = document.querySelector('.start')
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+let NS = 0
+let WE = 0
+let direction = 'x'
 const coordinates = []
 let workingSpace = []
-for (let i = 0; i < ghost.length; i++) {
-    ghost[i].style.top = '315px'
-    ghost[i].style.left = '315px'
-    
-}
 let coordinate = [[0,0],[0,0],[0,0],[0,0]]
+let coordinatePacman = [0,0]
 let opportunitys = [0,0,0,0]
-// let opportunityRight =false
-// let opportunityLeft =false
-// let opportunityTop =false
-// let opportunityBottom =false
 let opportunityRight =[false,false,false,false]
 let opportunityLeft =[false,false,false,false]
 let opportunityTop =[false,false,false,false]
@@ -48,6 +29,34 @@ function createSpace() {
         }
     } 
     console.log(coordinates)
+}
+function CreatePlayingSpace(){
+    let j = 0
+    let index
+for (let i = 0; i < boxes.length; i++) {
+boxes[i].addEventListener('click', ()=>{
+    let rep = false
+    for (let l = 0; l < workingSpace.length; l++) {
+        if (i === workingSpace[l]) {
+            rep = true
+            index = l
+        }
+        
+    }
+    if (rep === false) {
+        workingSpace[j] = i
+        j++
+        boxes[i].style.border ='2px solid purple'
+        console.log(workingSpace) 
+    }else{
+        boxes[i].style.border ='1px dashed gold'
+        workingSpace.splice(index,1)
+        workingSpace.filter(Number) 
+        j--
+    }
+    
+})    
+}
 }
 function createNumeration(){
     boxes.forEach((e,i)=>{
@@ -113,6 +122,57 @@ function LevelOne(j) {
     }
     ghost[j].style.left = `${coordinate[j][0]}px`
     ghost[j].style.top = `${coordinate[j][1]}px`
+}
+function Leveltwo(j) {
+    workingSpace = [80,81,82,83,84,85,86,87,88,89,79,69,59,49,39,29,19,9]
+    coordinate[j][0] = 30
+    coordinate[j][1] = 510
+   boxes[80].style.borderBottom = '3px solid purple'    
+   boxes[80].style.borderTop = '3px solid purple'    
+   boxes[80].style.borderLeft= '3px solid purple'    
+   boxes[80].style.borderRight = '0px solid purple' 
+   boxes[89].style.borderBottom = '3px solid purple'    
+   boxes[89].style.borderTop = '0px solid purple'    
+   boxes[89].style.borderLeft= '0px solid purple'    
+   boxes[89].style.borderRight = '3px solid purple' 
+   boxes[9].style.borderBottom = '0px solid purple'    
+   boxes[9].style.borderTop = '3px solid purple'    
+   boxes[9].style.borderLeft= '3px solid purple'    
+   boxes[9].style.borderRight = '3px solid purple' 
+for (let i = 81; i < 89; i++) {
+   boxes[i].style.borderBottom = '3px solid purple'    
+   boxes[i].style.borderTop = '3px solid purple'    
+   boxes[i].style.borderLeft= '0px solid purple'    
+   boxes[i].style.borderRight = '0px solid purple'    
+}
+let n = 10
+for (let i = 1; i < 8; i++) {
+   boxes[89 - i*n].style.borderBottom = '0px solid purple'    
+   boxes[89 - i*n].style.borderTop = '0px solid purple'    
+   boxes[89 - i*n].style.borderLeft= '3px solid purple'    
+   boxes[89 - i*n].style.borderRight = '3px solid purple'    
+}
+   ghost[j].style.left = `${coordinate[j][0]}px`
+   ghost[j].style.top = `${coordinate[j][1]}px`
+
+
+}
+function LevelTest(j) {
+    let randomium = Math.floor(Math.random()*workingSpace.length)
+    coordinate[j][0] = coordinates[workingSpace[randomium]][0]
+    coordinate[j][1] = coordinates[workingSpace[randomium]][1]
+   
+      for (let i = 0; i < workingSpace.length; i++) {
+        boxes[workingSpace[i]].style.border = '0px solid black'
+        
+      }
+       
+
+    
+    ghost[j].style.left = `${coordinate[j][0]}px`
+    ghost[j].style.top = `${coordinate[j][1]}px`
+
+
 }
 function checkRight(j) {
     let right = coordinate[j][0] + 30 
@@ -372,115 +432,140 @@ function Action() {
     OpportunitiesReset()
 
 }
-function Leveltwo(j) {
-     workingSpace = [80,81,82,83,84,85,86,87,88,89,79,69,59,49,39,29,19,9]
-     coordinate[j][0] = 30
-     coordinate[j][1] = 510
-    boxes[80].style.borderBottom = '3px solid purple'    
-    boxes[80].style.borderTop = '3px solid purple'    
-    boxes[80].style.borderLeft= '3px solid purple'    
-    boxes[80].style.borderRight = '0px solid purple' 
-    boxes[89].style.borderBottom = '3px solid purple'    
-    boxes[89].style.borderTop = '0px solid purple'    
-    boxes[89].style.borderLeft= '0px solid purple'    
-    boxes[89].style.borderRight = '3px solid purple' 
-    boxes[9].style.borderBottom = '0px solid purple'    
-    boxes[9].style.borderTop = '3px solid purple'    
-    boxes[9].style.borderLeft= '3px solid purple'    
-    boxes[9].style.borderRight = '3px solid purple' 
- for (let i = 81; i < 89; i++) {
-    boxes[i].style.borderBottom = '3px solid purple'    
-    boxes[i].style.borderTop = '3px solid purple'    
-    boxes[i].style.borderLeft= '0px solid purple'    
-    boxes[i].style.borderRight = '0px solid purple'    
- }
- let n = 10
- for (let i = 1; i < 8; i++) {
-    boxes[89 - i*n].style.borderBottom = '0px solid purple'    
-    boxes[89 - i*n].style.borderTop = '0px solid purple'    
-    boxes[89 - i*n].style.borderLeft= '3px solid purple'    
-    boxes[89 - i*n].style.borderRight = '3px solid purple'    
- }
-    ghost[j].style.left = `${coordinate[j][0]}px`
-    ghost[j].style.top = `${coordinate[j][1]}px`
+function PacManMoving() {
+    document.addEventListener('keydown', function(event) {
+        switch (true) {
+            case event.code == 'KeyW':
+                    MovingUp()
 
+                // check()
+
+                break;
+            case event.code == 'KeyS':
+                     MovingDown()
+
+                // check()
+                break;
+            case event.code == 'KeyA':
+                     MovingLeft()
+
+
+                // check()
+                break;
+            case event.code == 'KeyD':
+                 MovingRight()
+  
+                // check()
+                break;
+            default:
+                break;
+        }})
+}
+function MovingUp() {
+    NS = -30;WE = 0
+    direction = 'top'
 
 }
-function LevelTest(j) {
-        let randomium = Math.floor(Math.random()*workingSpace.length)
-        coordinate[j][0] = coordinates[workingSpace[randomium]][0]
-        coordinate[j][1] = coordinates[workingSpace[randomium]][1]
-       
-          for (let i = 0; i < workingSpace.length; i++) {
-            boxes[workingSpace[i]].style.border = '0px solid black'
-            
-          }
-           
-    
-        
-        ghost[j].style.left = `${coordinate[j][0]}px`
-        ghost[j].style.top = `${coordinate[j][1]}px`
+function MovingDown() {
+     NS = +30;WE = 0
+     direction = 'bottom'
 
+}
+function MovingLeft(){
+     NS = 0;WE = -30
+     direction = 'left'
+
+}
+function MovingRight() {
+        NS = 0;WE = +30
+        direction = 'right'
+}
+function MovinPacMan() {
+    setInterval(()=>{
+        coordinatePacman[0] = coordinatePacman[0]+WE
+        coordinatePacman[1] = coordinatePacman[1]+NS
+        pacman.style.top = `${coordinatePacman[1]}px`
+        pacman.style.left = `${coordinatePacman[0]}px`
+        Checking()
+
+    },1000)
     
 }
-function CreatePlayingSpace(){
-    let j = 0
-    let index
-for (let i = 0; i < boxes.length; i++) {
-boxes[i].addEventListener('click', ()=>{
-    let rep = false
-    for (let l = 0; l < workingSpace.length; l++) {
-        if (i === workingSpace[l]) {
-            rep = true
-            index = l
-        }
-        
+function Checking() {
+    switch (true) {
+        case direction === 'top':
+            NS = 0;WE = 0
+            workingSpace.forEach((elem,index) =>{
+                if((coordinates[elem-20][1] === coordinatePacman[1]-30)&&(workingSpace.includes(elem-20))){
+                    NS = -30;WE = 0;
+                    // direction = 'x';
+
+                }
+            })
+
+            break;
+        case direction === 'bottom':
+            NS = 0;WE = 0
+            workingSpace.forEach((elem,index) =>{
+                if((coordinates[elem+20][1] === coordinatePacman[1]+30)&&(workingSpace.includes(elem+20))){
+                    NS = +30;WE = 0
+                }})
+                // direction = 'x'
+
+            break;
+        case direction === 'left':
+            NS = 0;WE = 0
+
+            workingSpace.forEach((elem,index) =>{
+                if((coordinates[elem-1][0] === coordinatePacman[0]-30)&&(workingSpace.includes(elem-1))){
+                    NS = 0;WE = -30
+                }})
+                // direction = 'x'
+
+            break;
+        case direction === 'right':
+            NS = 0;WE = 0
+            workingSpace.forEach((elem,index) =>{
+                if((coordinates[elem+1][0] === coordinatePacman[0]+30)&&(workingSpace.includes(elem+1))){
+                    NS = 0;WE = +30
+                }})
+                // direction = 'x'
+
+            break;
+    
+        default:
+            break;
     }
-    if (rep === false) {
-        workingSpace[j] = i
-        j++
-        boxes[i].style.border ='2px solid purple'
-        console.log(workingSpace) 
-    }else{
-        boxes[i].style.border ='1px dashed gold'
-        workingSpace.splice(index,1)
-        workingSpace.filter(Number) 
-        j--
-    }
-    
-})    
 }
-}
+
 
 createSpace()
 createNumeration()
-
-
 built.addEventListener('click', CreatePlayingSpace)
 start.addEventListener('click', ()=>{
-
-    
         for (let i = 0; i < ghost.length; i++) {
             LevelTest(i)
             
         }
-    
         for (let i = 0; i < ghost.length; i++) {
             lastPosition[i][0] = coordinate[i][0]
             lastPosition[i][1] = coordinate[i][1]
             
         }
-   
-    
-    for (let i = 0; i < boxes.length; i++) {
         boxes.forEach((e,i)=>{
             boxes[i].innerHTML = ''
         })        
-    }
-    
+    let pacmanRandom = Math.floor(Math.random()*workingSpace.length)
+        coordinatePacman[0] = coordinates[workingSpace[pacmanRandom]][0]
+        coordinatePacman[1] = coordinates[workingSpace[pacmanRandom]][1]
+        pacman.style.left = `${coordinatePacman[0]}px`
+        pacman.style.top = `${coordinatePacman[1]}px`
     setInterval(() => {
     Action()
     },1000)
-    
+    MovinPacMan()
+    PacManMoving()
     
 })
+
+
