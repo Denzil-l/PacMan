@@ -29,6 +29,7 @@ let l
 let b
 let g
 let random = 0
+let variable = 0
 let lastPosition = [[0,0],[0,0],[0,0],[0,0]]
 function createSpace() {
     for (let i = 0; i < 20; i++) {
@@ -505,49 +506,84 @@ function MovinPacMan() {
 function Checking() {
     switch (true) {
         case direction === 'top':
+            variable = boxwherePacmanNow
             NS = 0;WE = 0
             workingSpace.forEach((elem,index) =>{
-                if((coordinates[elem-20][1] === coordinatePacman[1]-30)&&(workingSpace.includes(elem-20))){
-                    NS = -30;WE = 0;
-                    boxwherePacmanNow = elem
-                    // direction = 'x';
-
+                if (elem -20>= 0 && elem - 20 < 400) {
+                    if((coordinates[elem-20][1] === coordinatePacman[1]-30)&&(workingSpace.includes(elem-20))){
+                        NS = -30;WE = 0;
+                        boxwherePacmanNow = elem
+    
+                    }else{
+                        // boxwherePacmanNow = elem
+                    }
                 }
+               
             })
+            if(variable === boxwherePacmanNow){
+                boxwherePacmanNow = variable -20
+            }
 
             break;
         case direction === 'bottom':
+            variable = boxwherePacmanNow
+
             NS = 0;WE = 0
             workingSpace.forEach((elem,index) =>{
-                if((coordinates[elem+20][1] === coordinatePacman[1]+30)&&(workingSpace.includes(elem+20))){
-                    boxwherePacmanNow = elem
-
-                    NS = +30;WE = 0
-                }})
-                // direction = 'x'
-
+                if (elem + 20>= 0 && elem + 20 < 400) {
+                    if((coordinates[elem+20][1] === coordinatePacman[1]+30)&&(workingSpace.includes(elem+20))){
+                        NS = +30;WE = 0;
+                        boxwherePacmanNow = elem
+    
+                    }else{
+                        // boxwherePacmanNow = elem
+                    }
+                }
+               
+            })
+            if(variable === boxwherePacmanNow){
+                boxwherePacmanNow = variable +20
+            }
             break;
         case direction === 'left':
+            variable = boxwherePacmanNow
+
             NS = 0;WE = 0
-
             workingSpace.forEach((elem,index) =>{
-                if((coordinates[elem-1][0] === coordinatePacman[0]-30)&&(workingSpace.includes(elem-1))){
-                    boxwherePacmanNow = elem
-
-                    NS = 0;WE = -30
-                }})
-                // direction = 'x'
-
+                if (elem - 1>= 0 && elem - 1 < 400) {
+                    if((coordinates[elem-1][0] === coordinatePacman[0]-30)&&(workingSpace.includes(elem-1))){
+                        NS = 0;WE = -30;
+                        boxwherePacmanNow = elem
+    
+                    }else{
+                        // boxwherePacmanNow = elem
+                    }
+                }
+               
+            })
+            if(variable === boxwherePacmanNow){
+                boxwherePacmanNow = variable -1
+            }
             break;
         case direction === 'right':
+            variable = boxwherePacmanNow
+
             NS = 0;WE = 0
             workingSpace.forEach((elem,index) =>{
-                if((coordinates[elem+1][0] === coordinatePacman[0]+30)&&(workingSpace.includes(elem+1))){
-                    boxwherePacmanNow = elem
-                    NS = 0;WE = +30
-                }})
-                // direction = 'x'
-
+                if (elem + 1>= 0 && elem + 1 < 400) {
+                    if((coordinates[elem+1][0] === coordinatePacman[0]+30)&&(workingSpace.includes(elem+1))){
+                        NS = 0;WE = +30;
+                        boxwherePacmanNow = elem
+    
+                    }else{
+                        // boxwherePacmanNow = elem
+                    }
+                }
+               
+            })
+            if(variable === boxwherePacmanNow){
+                boxwherePacmanNow = variable +1
+            }
             break;
     
         default:
@@ -565,7 +601,7 @@ function CheckEating() {
         
             score++
             BoxesWithFoods[index] = -1
-            foods[index].style.display = 'none'
+            boxes[elem].innerHTML = ''
         
      
        }
@@ -599,6 +635,7 @@ start.addEventListener('click', ()=>{
     let pacmanRandom = Math.floor(Math.random()*workingSpace.length)
         coordinatePacman[0] = coordinates[workingSpace[pacmanRandom]][0]
         coordinatePacman[1] = coordinates[workingSpace[pacmanRandom]][1]
+        boxwherePacmanNow = workingSpace[pacmanRandom]
         pacman.style.left = `${coordinatePacman[0]}px`
         pacman.style.top = `${coordinatePacman[1]}px`
     setInterval(() => {
