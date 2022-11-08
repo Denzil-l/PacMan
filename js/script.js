@@ -3,13 +3,21 @@ const ghost = document.querySelectorAll('.ghost-container')
 const pacman = document.querySelector('.pacman-container')
 const built = document.querySelector('.built')
 const start = document.querySelector('.start')
+//-----------------------
+let foods
+let score = 0
+//-----------------------
 let NS = 0
 let WE = 0
 let direction = 'x'
 const coordinates = []
 let workingSpace = []
+//-----------------------
+const BoxesWithFoods = []
+//-----------------------
 let coordinate = [[0,0],[0,0],[0,0],[0,0]]
 let coordinatePacman = [0,0]
+let boxwherePacmanNow = 0
 let opportunitys = [0,0,0,0]
 let opportunityRight =[false,false,false,false]
 let opportunityLeft =[false,false,false,false]
@@ -56,6 +64,7 @@ boxes[i].addEventListener('click', ()=>{
     }
     
 })    
+
 }
 }
 function createNumeration(){
@@ -481,13 +490,15 @@ function MovingRight() {
         direction = 'right'
 }
 function MovinPacMan() {
+
     setInterval(()=>{
+        CheckEating()
+
         coordinatePacman[0] = coordinatePacman[0]+WE
         coordinatePacman[1] = coordinatePacman[1]+NS
         pacman.style.top = `${coordinatePacman[1]}px`
         pacman.style.left = `${coordinatePacman[0]}px`
         Checking()
-
     },1000)
     
 }
@@ -498,6 +509,7 @@ function Checking() {
             workingSpace.forEach((elem,index) =>{
                 if((coordinates[elem-20][1] === coordinatePacman[1]-30)&&(workingSpace.includes(elem-20))){
                     NS = -30;WE = 0;
+                    boxwherePacmanNow = elem
                     // direction = 'x';
 
                 }
@@ -508,6 +520,8 @@ function Checking() {
             NS = 0;WE = 0
             workingSpace.forEach((elem,index) =>{
                 if((coordinates[elem+20][1] === coordinatePacman[1]+30)&&(workingSpace.includes(elem+20))){
+                    boxwherePacmanNow = elem
+
                     NS = +30;WE = 0
                 }})
                 // direction = 'x'
@@ -518,6 +532,8 @@ function Checking() {
 
             workingSpace.forEach((elem,index) =>{
                 if((coordinates[elem-1][0] === coordinatePacman[0]-30)&&(workingSpace.includes(elem-1))){
+                    boxwherePacmanNow = elem
+
                     NS = 0;WE = -30
                 }})
                 // direction = 'x'
@@ -527,6 +543,7 @@ function Checking() {
             NS = 0;WE = 0
             workingSpace.forEach((elem,index) =>{
                 if((coordinates[elem+1][0] === coordinatePacman[0]+30)&&(workingSpace.includes(elem+1))){
+                    boxwherePacmanNow = elem
                     NS = 0;WE = +30
                 }})
                 // direction = 'x'
@@ -537,7 +554,23 @@ function Checking() {
             break;
     }
 }
-
+function createFoodSpace() {
+    workingSpace.forEach((elem,index) =>{
+        BoxesWithFoods[index] = elem
+    })
+}
+function CheckEating() {
+    BoxesWithFoods.forEach((elem,index)=>{
+       if(elem === boxwherePacmanNow){
+        
+            score++
+            BoxesWithFoods[index] = -1
+            foods[index].style.display = 'none'
+        
+     
+       }
+    })
+}
 
 createSpace()
 createNumeration()
@@ -552,9 +585,17 @@ start.addEventListener('click', ()=>{
             lastPosition[i][1] = coordinate[i][1]
             
         }
-        boxes.forEach((e,i)=>{
-            boxes[i].innerHTML = ''
-        })        
+        // boxes.forEach((e,i)=>{
+        //     boxes[i].innerHTML = ''
+        // })    
+        workingSpace.forEach(elem=>{
+            boxes[elem].innerHTML = ` <div class="food-container">
+                                <div class="food"></div>
+                                </div>`;
+
+        })
+        createFoodSpace()
+         foods = document.querySelectorAll('.food-container')
     let pacmanRandom = Math.floor(Math.random()*workingSpace.length)
         coordinatePacman[0] = coordinates[workingSpace[pacmanRandom]][0]
         coordinatePacman[1] = coordinates[workingSpace[pacmanRandom]][1]
@@ -565,7 +606,7 @@ start.addEventListener('click', ()=>{
     },1000)
     MovinPacMan()
     PacManMoving()
-    
+    console.log(foods)
 })
 
 
