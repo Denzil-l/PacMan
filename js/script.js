@@ -30,6 +30,8 @@ let b
 let g
 let random = 0
 let variable = 0
+let xxx = 0
+let yyy = false
 let lastPosition = [[0,0],[0,0],[0,0],[0,0]]
 function createSpace() {
     for (let i = 0; i < 20; i++) {
@@ -189,7 +191,7 @@ function checkRight(j) {
     let num = ''
     for (let i = 0; i < boxes.length; i++) {
         if ((right === coordinates[i][0]) && (coordinate[j][1] === coordinates[i][1])){
-            console.log(`${i} - Эта ячейка существует`)
+            // console.log(`${i} - Эта ячейка существует`)
             num = i
         }
         
@@ -198,13 +200,13 @@ function checkRight(j) {
         if (num === workingSpace[i]) {
             opportunitys[j]++
             opportunityRight[j] = true
-            console.log(`${num} Эта ячейка в игровом поле`)
+            // console.log(`${num} Эта ячейка в игровом поле`)
 
         }    
      
     }
     
-    console.log(`${opportunitys[j]} - столько возможностей`)
+    // console.log(`${opportunitys[j]} - столько возможностей`)
 
 }
 function checkTop(j) {
@@ -212,7 +214,7 @@ function checkTop(j) {
     let num = ''
     for (let i = 0; i < boxes.length; i++) {
         if ((coordinate[j][0] === coordinates[i][0]) && (top === coordinates[i][1])){
-            console.log(`${i} - Эта ячейка существует`)
+            // console.log(`${i} - Эта ячейка существует`)
             num = i
         }
         
@@ -221,12 +223,12 @@ function checkTop(j) {
         if (num === workingSpace[i]) {
             opportunityTop[j] = true    
             opportunitys[j]++    
-            console.log(`${num} Эта ячейка в игровом поле`)
+            // console.log(`${num} Эта ячейка в игровом поле`)
    
         }    
      
     }
-    console.log(`${opportunitys[j]} - столько возможностей`)
+    // console.log(`${opportunitys[j]} - столько возможностей`)
     
 
 }
@@ -235,7 +237,7 @@ function checkLeft(j) {
     let num = ''
     for (let i = 0; i < boxes.length; i++) {
         if ((left === coordinates[i][0]) && (coordinate[j][1] === coordinates[i][1])){
-            console.log(`${i} - Эта ячейка существует`)
+            // console.log(`${i} - Эта ячейка существует`)
             num = i
         }
         
@@ -244,12 +246,12 @@ function checkLeft(j) {
         if (num === workingSpace[i]) {
             opportunityLeft[j] = true   
             opportunitys[j]++ 
-            console.log(`${num} Эта ячейка в игровом поле`)
+            // console.log(`${num} Эта ячейка в игровом поле`)
       
         }    
      
     }
-    console.log(`${opportunitys[j]} - столько возможностей`)
+    // console.log(`${opportunitys[j]} - столько возможностей`)
 
 }
 function checkBottom(j) {
@@ -257,7 +259,7 @@ function checkBottom(j) {
     let num = ''
     for (let i = 0; i < boxes.length; i++) {
         if ((coordinate[j][0] === coordinates[i][0]) && (bottom === coordinates[i][1])){
-            console.log(`${i} - Эта ячейка существует`)
+            // console.log(`${i} - Эта ячейка существует`)
             num = i
         }
         
@@ -266,12 +268,12 @@ function checkBottom(j) {
         if (num === workingSpace[i]) {
             opportunityBottom[j] = true   
             opportunitys[j]++       
-            console.log(`${num} Эта ячейка в игровом поле`)
+            // console.log(`${num} Эта ячейка в игровом поле`)
 
         }    
      
     }
-    console.log(`${opportunitys[j]} - столько возможностей`)
+    // console.log(`${opportunitys[j]} - столько возможностей`)
 
 }
 function OpportunitiesReset() {
@@ -442,6 +444,7 @@ function Action() {
     OpportunitiesReset()
 
 }
+//---------------------Logic--of--Pacman------------------------
 function PacManMoving() {
     document.addEventListener('keydown', function(event) {
         switch (true) {
@@ -493,97 +496,105 @@ function MovingRight() {
 function MovinPacMan() {
 
     setInterval(()=>{
+
+        
         CheckEating()
+        Checking()
+        boxwherePacmanNow = boxwherePacmanNow + variable
 
         coordinatePacman[0] = coordinatePacman[0]+WE
         coordinatePacman[1] = coordinatePacman[1]+NS
         pacman.style.top = `${coordinatePacman[1]}px`
         pacman.style.left = `${coordinatePacman[0]}px`
-        Checking()
     },1000)
     
 }
 function Checking() {
     switch (true) {
         case direction === 'top':
-            variable = boxwherePacmanNow
             NS = 0;WE = 0
-            workingSpace.forEach((elem,index) =>{
-                if (elem -20>= 0 && elem - 20 < 400) {
-                    if((coordinates[elem-20][1] === coordinatePacman[1]-30)&&(workingSpace.includes(elem-20))){
+             xxx = 0
+            do {
+                if (boxwherePacmanNow -20>= 0 && boxwherePacmanNow - 20 < 400 ) {
+                    if((coordinates[boxwherePacmanNow-20][1] === coordinatePacman[1]-30)&&(workingSpace.includes(boxwherePacmanNow-20))){
                         NS = -30;WE = 0;
-                        boxwherePacmanNow = elem
-    
-                    }else{
-                        // boxwherePacmanNow = elem
+                        variable = -20
+                        yyy = true
                     }
                 }
-               
-            })
-            if(variable === boxwherePacmanNow){
-                boxwherePacmanNow = variable -20
+                xxx += -20
+            } while (workingSpace.includes(boxwherePacmanNow-xxx));
+            if(yyy === false){
+                variable = 0
             }
+            yyy = false
 
+          
+           
             break;
         case direction === 'bottom':
-            variable = boxwherePacmanNow
 
             NS = 0;WE = 0
-            workingSpace.forEach((elem,index) =>{
-                if (elem + 20>= 0 && elem + 20 < 400) {
-                    if((coordinates[elem+20][1] === coordinatePacman[1]+30)&&(workingSpace.includes(elem+20))){
-                        NS = +30;WE = 0;
-                        boxwherePacmanNow = elem
-    
-                    }else{
-                        // boxwherePacmanNow = elem
-                    }
-                }
-               
-            })
-            if(variable === boxwherePacmanNow){
-                boxwherePacmanNow = variable +20
+          
+            NS = 0;WE = 0
+            xxx = 0
+           do {
+               if (boxwherePacmanNow +20>= 0 && boxwherePacmanNow + 20 < 400 ) {
+                   if((coordinates[boxwherePacmanNow+20][1] === coordinatePacman[1]+30)&&(workingSpace.includes(boxwherePacmanNow+20))){
+                       NS = +30;WE = 0;
+                       variable = +20
+                       yyy = true
+                   }
+               }
+               xxx += +20
+           } while (workingSpace.includes(boxwherePacmanNow+xxx));
+          
+            if(yyy === false){
+                variable = 0
             }
+            yyy = false
             break;
         case direction === 'left':
-            variable = boxwherePacmanNow
 
+           
             NS = 0;WE = 0
-            workingSpace.forEach((elem,index) =>{
-                if (elem - 1>= 0 && elem - 1 < 400) {
-                    if((coordinates[elem-1][0] === coordinatePacman[0]-30)&&(workingSpace.includes(elem-1))){
-                        NS = 0;WE = -30;
-                        boxwherePacmanNow = elem
-    
-                    }else{
-                        // boxwherePacmanNow = elem
-                    }
-                }
-               
-            })
-            if(variable === boxwherePacmanNow){
-                boxwherePacmanNow = variable -1
+            xxx = 0
+           do {
+               if (boxwherePacmanNow -1>= 0 && boxwherePacmanNow - 1 < 400 ) {
+                   if((coordinates[boxwherePacmanNow-1][0] === coordinatePacman[0]-30)&&(workingSpace.includes(boxwherePacmanNow-1))){
+                       NS = 0;WE = -30;
+                       variable = -1
+                       yyy = true
+                   }
+               }
+               xxx += -1
+           } while (workingSpace.includes(boxwherePacmanNow-xxx));
+
+            if(yyy === false){
+                variable = 0
             }
+            yyy = false
             break;
         case direction === 'right':
-            variable = boxwherePacmanNow
 
+          
             NS = 0;WE = 0
-            workingSpace.forEach((elem,index) =>{
-                if (elem + 1>= 0 && elem + 1 < 400) {
-                    if((coordinates[elem+1][0] === coordinatePacman[0]+30)&&(workingSpace.includes(elem+1))){
-                        NS = 0;WE = +30;
-                        boxwherePacmanNow = elem
-    
-                    }else{
-                        // boxwherePacmanNow = elem
-                    }
-                }
-               
-            })
-            if(variable === boxwherePacmanNow){
-                boxwherePacmanNow = variable +1
+            xxx = 0
+           do {
+               if (boxwherePacmanNow +1>= 0 && boxwherePacmanNow + 1 < 400 ) {
+                   if((coordinates[boxwherePacmanNow+1][0] === coordinatePacman[0]+30)&&(workingSpace.includes(boxwherePacmanNow+1))){
+                       NS = 0;WE = +30;
+                       variable = +1
+                       yyy = true
+                   }
+               }
+               xxx += +1
+           } while (workingSpace.includes(boxwherePacmanNow+xxx));
+
+            if(yyy === false){
+                variable = 0
             }
+            yyy = false
             break;
     
         default:
@@ -607,7 +618,7 @@ function CheckEating() {
        }
     })
 }
-
+//----------------------------------Start---Programm----------
 createSpace()
 createNumeration()
 built.addEventListener('click', CreatePlayingSpace)
