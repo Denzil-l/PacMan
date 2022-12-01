@@ -4,8 +4,10 @@ const pacman = document.querySelector('.pacman-container')
 const built = document.querySelector('.built')
 const start = document.querySelector('.start')
 const Score = document.querySelector('.Score')
+const Grid = document.querySelector('.grid')
 //-----------------------
 let score = 0
+let ii = 0
 //-----------------------
 let NS = 0
 let WE = 0
@@ -44,6 +46,14 @@ function createSpace() {
     console.log(coordinates)
 }
 function CreatePlayingSpace(){
+    ii++
+    if (ii % 2 !== 0) {
+        Grid.style.animationName = 'anim1'
+    }
+    else{
+        Grid.style.animationName = 'none'
+
+    }
     let j = 0
     let index
 for (let i = 0; i < boxes.length; i++) {
@@ -585,6 +595,8 @@ built.addEventListener('click', CreatePlayingSpace)
 start.addEventListener('click', ()=>{
     score = 0
     Score.innerHTML = score
+    Grid.style.animationName = 'none'
+
     checkDeath = false
         for (let i = 0; i < ghost.length; i++) {
             LevelTest(i)

@@ -163,6 +163,12 @@ h1, h2, h3, h4, h5, h6 {
   grid-template-columns: repeat(20, 1fr);
   grid-template-rows: repeat(20, 1fr);
   border: 5px solid gold;
+  -webkit-animation-duration: 2s;
+          animation-duration: 2s;
+  -webkit-animation-timing-function: linear;
+          animation-timing-function: linear;
+  -webkit-animation-iteration-count: infinite;
+          animation-iteration-count: infinite;
 }
 
 .ghost-container {
@@ -237,4 +243,28 @@ h1, h2, h3, h4, h5, h6 {
 
 #four {
   background-color: olive;
+}
+
+@-webkit-keyframes anim1 {
+  0% {
+    box-shadow: 0px 0px 21px 0px rgba(93, 93, 235, 0.5);
+  }
+  50% {
+    box-shadow: 0px 0px 5px 0px rgba(93, 93, 235, 0.5);
+  }
+  100% {
+    box-shadow: 0px 0px 21px 0px rgba(93, 93, 235, 0.5);
+  }
+}
+
+@keyframes anim1 {
+  0% {
+    box-shadow: 0px 0px 21px 0px rgba(93, 93, 235, 0.5);
+  }
+  50% {
+    box-shadow: 0px 0px 5px 0px rgba(93, 93, 235, 0.5);
+  }
+  100% {
+    box-shadow: 0px 0px 21px 0px rgba(93, 93, 235, 0.5);
+  }
 }
